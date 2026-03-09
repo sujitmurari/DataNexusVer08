@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS//OS v8 - Analytics Intelligence Terminal</title>
+  <meta name="description" content="Futuristic analytics workstation portfolio inspired by Bloomberg Terminal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/cyberpunk.css">
+</head>
+<body>
+  <div id="boot-screen" class="boot-screen">
+    <div class="boot-grid"></div>
+    <div class="boot-core">
+      <div class="boot-logo-stack">
+        <div class="boot-orbit boot-orbit-one"></div>
+        <div class="boot-orbit boot-orbit-two"></div>
+        <div class="boot-orbit boot-orbit-three"></div>
+        <div class="boot-emblem">
+          <div class="boot-emblem-ring"></div>
+          <div class="boot-emblem-text">
+            <span class="boot-emblem-name">NEXUS//OS</span>
+            <span class="boot-emblem-version">V8</span>
+          </div>
+        </div>
+      </div>
+      <div class="boot-copy">
+        <p class="boot-overline">Analytics Intelligence Terminal</p>
+        <h1 class="boot-title">Futuristic Analytics Workstation</h1>
+        <p class="boot-subtitle">Streaming dashboards, AI insights, SQL intelligence, KPI telemetry, and immersive data exploration.</p>
+      </div>
+      <div class="boot-terminal">
+        <div class="boot-terminal-header">
+          <span class="status-dot"></span>
+          <span class="boot-terminal-title">Boot Diagnostics</span>
+          <span class="boot-terminal-clock" id="boot-terminal-clock">00:00:00</span>
+        </div>
+        <div class="boot-terminal-body" id="boot-log"></div>
+      </div>
+      <div class="boot-progress-panel">
+        <div class="boot-progress-meta"><span>Boot sequence</span><span id="boot-progress-label">0%</span></div>
+        <div class="boot-progress-track"><div id="boot-progress-bar" class="boot-progress-bar"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <main id="desktop" class="desktop desktop-hidden" aria-live="polite">
+    <canvas id="desktop-background" class="desktop-background"></canvas>
+    <div class="desktop-grid"></div>
+    <div class="desktop-scanlines"></div>
+
+    <aside class="application-dock" id="application-dock">
+      <div class="dock-brand"><span class="dock-brand-name">NEXUS</span><span class="dock-brand-version">OS/V8</span></div>
+      <div class="dock-divider"></div>
+      <button class="dock-app" data-app="dashboard" title="Analytics Dashboard"><span class="dock-icon">DB</span><span class="dock-label">Dash</span></button>
+      <button class="dock-app" data-app="dataset" title="Dataset Analyzer"><span class="dock-icon">DS</span><span class="dock-label">Data</span></button>
+      <button class="dock-app" data-app="sql" title="SQL Query Console"><span class="dock-icon">SQL</span><span class="dock-label">SQL</span></button>
+      <button class="dock-app" data-app="ai" title="AI Analytics Assistant"><span class="dock-icon">AI</span><span class="dock-label">Nexus</span></button>
+      <button class="dock-app" data-app="pipeline" title="Data Pipeline Visualizer"><span class="dock-icon">PL</span><span class="dock-label">Flow</span></button>
+      <button class="dock-app" data-app="visuals" title="3D Analytics Visualizer"><span class="dock-icon">3D</span><span class="dock-label">Viz</span></button>
+      <button class="dock-app" data-app="projects" title="Projects Database"><span class="dock-icon">PR</span><span class="dock-label">Proj</span></button>
+      <button class="dock-app" data-app="terminal" title="Terminal Console"><span class="dock-icon">TM</span><span class="dock-label">Term</span></button>
+    </aside>
+
+    <section class="desktop-widgets">
+      <div class="widget widget-clock">
+        <div class="widget-heading">System Clock</div>
+        <div class="widget-clock-time" id="widget-time">00:00</div>
+        <div class="widget-clock-date" id="widget-date">Loading date</div>
+        <div class="widget-clock-status"><span class="status-dot"></span>Analytics fabric online</div>
+      </div>
+      <div class="widget">
+        <div class="widget-heading">Telemetry Uplinks</div>
+        <div class="telemetry-row"><span>Visualization engine</span><span class="accent-cyan">Connected</span></div>
+        <div class="telemetry-row"><span>Data pipelines</span><span class="accent-green">Streaming</span></div>
+        <div class="telemetry-row"><span>AI insight engine</span><span class="accent-magenta">Adaptive</span></div>
+        <div class="telemetry-row"><span>SQL runtime</span><span class="accent-violet">Ready</span></div>
+      </div>
+      <div class="widget">
+        <div class="widget-heading">Performance Signal</div>
+        <div class="meter-stack">
+          <div class="meter"><div class="meter-labels"><span>Dashboards</span><span id="meter-dashboards">92%</span></div><div class="meter-track"><div class="meter-fill cyan" data-meter="dashboards"></div></div></div>
+          <div class="meter"><div class="meter-labels"><span>Ingestion</span><span id="meter-ingestion">88%</span></div><div class="meter-track"><div class="meter-fill magenta" data-meter="ingestion"></div></div></div>
+          <div class="meter"><div class="meter-labels"><span>Forecasting</span><span id="meter-forecasting">84%</span></div><div class="meter-track"><div class="meter-fill violet" data-meter="forecasting"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="kpi-strip" id="kpi-strip"></section>
+    <section class="window-layer" id="window-layer"></section>
+
+    <footer class="taskbar">
+      <div class="taskbar-brand"><span class="status-dot"></span><span>NEXUS//OS</span></div>
+      <div class="taskbar-divider"></div>
+      <div class="taskbar-apps" id="taskbar-apps"></div>
+      <div class="taskbar-divider"></div>
+      <div class="taskbar-tray"><span id="tray-status">SYSTEM STABLE</span><span id="tray-clock">00:00:00</span></div>
+    </footer>
+  </main>
+
+  <template id="window-template">
+    <article class="os-window" data-window>
+      <div class="window-frame-glow"></div>
+      <header class="window-titlebar" data-drag-handle>
+        <div class="window-controls">
+          <button type="button" class="window-control close" data-action="close" aria-label="Close"></button>
+          <button type="button" class="window-control minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button type="button" class="window-control maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title-group">
+          <span class="window-title" data-window-title></span>
+          <span class="window-subtitle" data-window-subtitle></span>
+        </div>
+        <div class="window-system-label">ANALYTICS NODE</div>
+      </header>
+      <section class="window-body" data-window-body></section>
+      <button class="window-resize-handle" data-resize-handle aria-label="Resize window"></button>
+    </article>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+  <script type="module" src="./boot.js"></script>
+</body>
+</html>
